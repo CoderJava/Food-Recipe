@@ -23,6 +23,9 @@ dependencies:
   # Automatically generate code for converting to and from JSON
   json_serializable: ^3.0.0
 
+  # Tools to write binaries that run builders.
+  build_runner: ^1.5.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

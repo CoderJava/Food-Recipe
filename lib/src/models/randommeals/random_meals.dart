@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-part 'random_meals.g.dart';
+part 'package:food_recipe/src/models/randommeals/random_meals.g.dart';
 
 @JsonSerializable()
 class RandomMeals {

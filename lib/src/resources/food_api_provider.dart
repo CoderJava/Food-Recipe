@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:food_recipe/src/models/area/area_meals.dart';
 import 'package:food_recipe/src/models/categories/categories.dart';
+import 'package:food_recipe/src/models/filtercategories/filter_categories.dart';
 import 'package:food_recipe/src/models/latest/latest_meals.dart';
 import 'package:food_recipe/src/models/randommeals/random_meals.dart';
 
@@ -41,6 +42,15 @@ class FoodApiProvider {
       return AreaMeals.fromJson(response.data);
     } else {
       throw Exception("Failed to get area meals");
+    }
+  }
+
+  Future<FilterCategories> getFilterCategories(String keyword) async {
+    final response = await dio.get("$_baseUrl/api/json/v1/1/filter.php?c=$keyword");
+    if (response.statusCode == 200) {
+      return FilterCategories.fromJson(response.data);
+    } else {
+      throw Exception("Failed to get filter categories");
     }
   }
   

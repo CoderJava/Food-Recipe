@@ -45,8 +45,8 @@ class FoodApiProvider {
     }
   }
 
-  Future<FilterCategories> getFilterByCategories(String keyword) async {
-    final response = await dio.get("$_baseUrl/api/json/v1/1/filter.php?c=$keyword");
+  Future<FilterCategories> getFilterByCategories(String category) async {
+    final response = await dio.get("$_baseUrl/api/json/v1/1/filter.php?c=$category");
     if (response.statusCode == 200) {
       return FilterCategories.fromJson(response.data);
     } else {

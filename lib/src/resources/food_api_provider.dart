@@ -4,6 +4,7 @@ import 'package:food_recipe/src/models/categories/categories.dart';
 import 'package:food_recipe/src/models/filterarea/filter_area_meals.dart';
 import 'package:food_recipe/src/models/filtercategories/filter_categories.dart';
 import 'package:food_recipe/src/models/latest/latest_meals.dart';
+import 'package:food_recipe/src/models/lookupmealsbyid/lookup_meals_by_id.dart';
 import 'package:food_recipe/src/models/randommeals/random_meals.dart';
 
 class FoodApiProvider {
@@ -61,6 +62,15 @@ class FoodApiProvider {
       return FilterAreaMeals.fromJson(response.data);
     } else {
       throw Exception("Failed to get filter by area");
+    }
+  }
+  
+  Future<LookupMealsById> getLookupMealsById(String id) async {
+    final response = await dio.get("$_baseUrl/api/json/v1/1/lookup.php?i=$id");
+    if (response.statusCode == 200) {
+      return LookupMealsById.fromJson(response.data);
+    } else {
+      throw Exception("Failed to get lookup meals by id");
     }
   }
 

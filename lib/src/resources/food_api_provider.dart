@@ -6,6 +6,7 @@ import 'package:food_recipe/src/models/filtercategories/filter_categories.dart';
 import 'package:food_recipe/src/models/latest/latest_meals.dart';
 import 'package:food_recipe/src/models/lookupmealsbyid/lookup_meals_by_id.dart';
 import 'package:food_recipe/src/models/randommeals/random_meals.dart';
+import 'package:food_recipe/src/models/searchmeals/search_meals.dart';
 
 class FoodApiProvider {
   Dio dio = Dio();
@@ -71,6 +72,15 @@ class FoodApiProvider {
       return LookupMealsById.fromJson(response.data);
     } else {
       throw Exception("Failed to get lookup meals by id");
+    }
+  }
+
+  Future<SearchMeals> getSearchMealsByKeyword(String keyword) async {
+    final response = await dio.get("$_baseUrl/api/json/v1/1/search.php?s=$keyword");
+    if (response.statusCode == 200) {
+      return SearchMeals.fromJson(response.data);
+    } else {
+      throw Exception("Failed to get search meals by id keyword");
     }
   }
 

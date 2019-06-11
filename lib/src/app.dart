@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe/src/ui/listmeals/list_meals.dart';
+import 'package:food_recipe/src/ui/listmeals/list_meals_screen.dart';
 import 'package:food_recipe/values/color_assets.dart';
 
 import 'ui/favorite/favorite_screen.dart';
@@ -20,7 +20,7 @@ class _AppState extends State<App> {
       debugShowCheckedModeBanner: false,
       routes: {
         navigatorListMeals: (context) {
-          return ListMeals();
+          return ListMealsScreen();
         }
       },
       theme: ThemeData(

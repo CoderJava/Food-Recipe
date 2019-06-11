@@ -5,12 +5,12 @@ import 'package:food_recipe/src/models/categories/categories.dart';
 import 'package:food_recipe/src/models/filtercategories/filter_categories.dart';
 import 'package:food_recipe/src/utils/utils.dart';
 
-class ListMeals extends StatefulWidget {
+class ListMealsScreen extends StatefulWidget {
   @override
-  _ListMealsState createState() => _ListMealsState();
+  _ListMealsScreenState createState() => _ListMealsScreenState();
 }
 
-class _ListMealsState extends State<ListMeals> {
+class _ListMealsScreenState extends State<ListMealsScreen> {
   CategoryItem categoryItem;
 
   @override

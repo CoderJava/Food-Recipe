@@ -126,11 +126,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               horizontal: 8.0, vertical: 12.0),
                           child: Column(
                             children: <Widget>[
-                              Text(
-                                category.strCategory,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
+                              Hero(
+                                tag: "label_item_category_${category.idCategory}",
+                                child: Text(
+                                  category.strCategory,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                               Padding(padding: const EdgeInsets.only(top: 8.0)),

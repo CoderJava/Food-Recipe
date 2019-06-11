@@ -44,13 +44,16 @@ class _ListMealsState extends State<ListMeals> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(padding: EdgeInsets.only(top: 16.0)),
-          Text(
-            categoryItem.strCategory,
-            style: Theme.of(context)
-                .textTheme
-                .display2
-                .merge(TextStyle(fontWeight: FontWeight.bold)),
-            maxLines: 1,
+          Hero(
+            tag: "label_item_category_${categoryItem.idCategory}",
+            child: Text(
+              categoryItem.strCategory,
+              style: Theme.of(context)
+                  .textTheme
+                  .display2
+                  .merge(TextStyle(fontWeight: FontWeight.bold)),
+              maxLines: 1,
+            ),
           ),
           Padding(padding: EdgeInsets.only(top: 16.0)),
           Expanded(

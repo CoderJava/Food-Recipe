@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.only(right: 4.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, navigatorListMeals);
+                        Navigator.pushNamed(context, navigatorListMeals, arguments: category);
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(

@@ -17,6 +17,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       routes: {
         navigatorListMeals: (context) {
           return ListMeals();

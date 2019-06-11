@@ -1,10 +1,9 @@
-import 'dart:io' show Platform;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_recipe/src/blocs/home_bloc.dart';
 import 'package:food_recipe/src/models/categories/categories.dart';
 import 'package:food_recipe/src/models/latest/latest_meals.dart';
+import 'package:food_recipe/src/utils/utils.dart';
 import 'package:food_recipe/values/color_assets.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,8 +12,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String result = "-";
-
   @override
   void dispose() {
     homeBloc.dispose();
@@ -26,7 +23,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Stack(
       children: <Widget>[
         _buildWidgetBackground(),
-        _buildWidgetContent(),
+        ListView(
+          children: <Widget>[
+            _buildWidgetContent(),
+          ],
+        ),
       ],
     );
   }
@@ -35,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       children: <Widget>[
         Expanded(
+          flex: 2,
           child: Container(
             color: ColorAssets.primarySwatchColor,
           ),
@@ -111,34 +113,41 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 136.0,
                   child: Padding(
                     padding: const EdgeInsets.only(right: 4.0),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0)),
-                      color: _setColorItemCategory(numberItem),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              category.strCategory,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            Padding(padding: const EdgeInsets.only(top: 8.0)),
-                            Container(
-                              width: 136.0,
-                              height: 72.0,
-                              child: FadeInImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  category.strCategoryThumb,
+                    child: GestureDetector(
+                      onTap: () {
+                        // TODO: do something in here
+                      },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0)),
+                        color: _setColorItemCategory(numberItem),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 12.0),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                category.strCategory,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
                                 ),
-                                placeholder: AssetImage("assets/images/img_placeholder.jpg"),
                               ),
-                            ),
-                          ],
+                              Padding(padding: const EdgeInsets.only(top: 8.0)),
+                              Container(
+                                width: 136.0,
+                                height: 72.0,
+                                child: FadeInImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                    category.strCategoryThumb,
+                                  ),
+                                  placeholder: AssetImage(
+                                      "assets/images/img_placeholder.jpg"),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -150,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
         } else if (snapshot.hasError) {
           return Text(snapshot.error.toString());
         }
-        return Center(child: _buildCircularProgressIndicator());
+        return Center(child: buildCircularProgressIndicator());
       },
     );
   }
@@ -162,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (snapshot.hasData) {
           var latestMeals = snapshot.data;
           return Container(
-            height: 256.0,
+            height: mediaQuery.size.width / 2 + 64.0, // 256.0
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: latestMeals.latestMealsItems.length,
@@ -171,6 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: Card(
+                    elevation: 4.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16.0)),
                     child: ClipRRect(
@@ -192,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fit: BoxFit.cover,
                             ),
                             width: mediaQuery.size.width - 96.0,
-                            height: 192.0,
+                            height: mediaQuery.size.width / 2, // 192.0
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -214,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return Container(
           height: 128.0,
           child: Center(
-            child: _buildCircularProgressIndicator(),
+            child: buildCircularProgressIndicator(),
           ),
         );
       },
@@ -255,14 +265,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
-
-  Widget _buildCircularProgressIndicator() {
-    if (Platform.isIOS) {
-      return CupertinoActivityIndicator();
-    } else {
-      return CircularProgressIndicator();
-    }
   }
 
   Color _setColorItemCategory(int number) {

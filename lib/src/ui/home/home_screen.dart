@@ -23,10 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Stack(
       children: <Widget>[
         _buildWidgetBackground(),
-        ListView(
-          children: <Widget>[
-            _buildWidgetContent(),
-          ],
+        SafeArea(
+          child: ListView(
+            children: <Widget>[
+              _buildWidgetContent(),
+            ],
+          ),
         ),
       ],
     );

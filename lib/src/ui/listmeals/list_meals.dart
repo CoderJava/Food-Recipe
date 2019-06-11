@@ -69,70 +69,77 @@ class _ListMealsState extends State<ListMeals> {
                           filterCategories.filterCategoryItems[index];
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 16.0),
-                        child: Card(
-                          elevation: 8.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16.0),
-                            child: Stack(
-                              children: <Widget>[
-                                FadeInImage(
-                                  image: NetworkImage(
-                                      filterCategoryItem.strMealThumb),
-                                  placeholder: AssetImage(
-                                      "assets/images/img_not_found.jpg"),
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                  height: mediaQuery.size.width / 1.5,
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  height: mediaQuery.size.width / 1.5,
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        stops: [
-                                          0.1,
-                                          0.9
-                                        ],
-                                        colors: [
-                                          Color(0xFFFFFFFF),
-                                          Color(0x00FFFFFF),
-                                        ]),
+                        child: GestureDetector(
+                          onTap: () {
+                            // TODO: do something in here
+                            print("tap item list meals");
+                          },
+                          child: Card(
+                            elevation: 8.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16.0),
+                              child: Stack(
+                                children: <Widget>[
+                                  FadeInImage(
+                                    image: NetworkImage(
+                                        filterCategoryItem.strMealThumb),
+                                    placeholder: AssetImage(
+                                        "assets/images/img_not_found.jpg"),
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height: mediaQuery.size.width / 1.5,
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                          filterCategoryItem.strMeal,
-                                          style:
-                                              Theme.of(context).textTheme.title,
-                                          maxLines: 2,
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          // TODO: do something in here
-                                        },
-                                        child: CircleAvatar(
-                                          backgroundColor: Color(0xAFE8364B),
-                                          child: Icon(
-                                            Icons.favorite_border,
-                                            color: Colors.white,
+                                  Container(
+                                    width: double.infinity,
+                                    height: mediaQuery.size.width / 1.5,
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          stops: [
+                                            0.1,
+                                            0.9
+                                          ],
+                                          colors: [
+                                            Color(0xFFFFFFFF),
+                                            Color(0x00FFFFFF),
+                                          ]),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            filterCategoryItem.strMeal,
+                                            style:
+                                                Theme.of(context).textTheme.title,
+                                            maxLines: 2,
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                        GestureDetector(
+                                          onTap: () {
+                                            // TODO: do something in here
+                                            print("tap favorite");
+                                          },
+                                          child: CircleAvatar(
+                                            backgroundColor: Color(0xAFE8364B),
+                                            child: Icon(
+                                              Icons.favorite_border,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),

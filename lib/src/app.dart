@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_recipe/src/ui/listmeals/list_meals.dart';
 import 'package:food_recipe/values/color_assets.dart';
 
 import 'ui/favorite/favorite_screen.dart';
 import 'ui/home/home_screen.dart';
+import 'utils/utils.dart';
 
 class App extends StatefulWidget {
   @override
@@ -15,6 +17,11 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        navigatorListMeals: (context) {
+          return ListMeals();
+        }
+      },
       theme: ThemeData(
         primaryColor: ColorAssets.primarySwatchColor,
         accentColor: ColorAssets.accentColor,

@@ -87,7 +87,7 @@ class _ListMealsState extends State<ListMeals> {
                                     image: NetworkImage(
                                         filterCategoryItem.strMealThumb),
                                     placeholder: AssetImage(
-                                        "assets/images/img_not_found.jpg"),
+                                        "assets/images/img_placeholder.jpg"),
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                     height: mediaQuery.size.width / 1.5,

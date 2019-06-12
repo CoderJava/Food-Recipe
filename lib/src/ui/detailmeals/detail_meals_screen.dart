@@ -118,7 +118,7 @@ class _DetailMealsScreenState extends State<DetailMealsScreen> {
 
   Widget _buildWidgetInfoInstructions(String strInstructions) {
     return Padding(
-      padding: EdgeInsets.only(left: 8.0, top: 8.0),
+      padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
       child: Text(strInstructions),
     );
   }
@@ -265,6 +265,7 @@ class _DetailMealsScreenState extends State<DetailMealsScreen> {
         Text(
           strTags.substring(0, strTags.length - 1),
           style: TextStyle(color: Colors.grey),
+          maxLines: 1,
         ),
       ],
     );

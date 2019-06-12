@@ -26,6 +26,9 @@ dependencies:
   # Tools to write binaries that run builders.
   build_runner: ^1.5.1
 
+  # Flutter plugin for launching a URL on Android and iOS.
+  url_launcher: ^5.0.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

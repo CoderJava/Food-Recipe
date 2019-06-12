@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_recipe/src/blocs/detailmeals/detail_meals_bloc.dart';
 import 'package:food_recipe/src/models/lookupmealsbyid/lookup_meals_by_id.dart';
 import 'package:food_recipe/src/utils/utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailMealsScreen extends StatefulWidget {
   final String idMeal;
@@ -229,8 +232,30 @@ class _DetailMealsScreenState extends State<DetailMealsScreen> {
 
   Widget _buildWidgetInfoPlayVideo(String strYoutube) {
     return GestureDetector(
-      onTap: () {
-        // TODO: do something in here
+      onTap: () async {
+        if (strYoutube.isNotEmpty) {
+          if (Platform.isIOS) {
+            if (await canLaunch(strYoutube)) {
+              await launch(strYoutube, forceSafariVC: false);
+            } else {
+              if (await canLaunch(strYoutube)) {
+                await launch(strYoutube);
+              } else {
+                Scaffold.of(context).showSnackBar(
+                    SnackBar(content: Text("Could not play video")));
+                throw "Could not play video";
+              }
+            }
+          } else {
+            if (await canLaunch(strYoutube)) {
+              await launch(strYoutube);
+            } else {
+              Scaffold.of(context).showSnackBar(
+                  SnackBar(content: Text("Could not play video")));
+              throw "Could not play video";
+            }
+          }
+        }
       },
       child: Row(
         children: <Widget>[

@@ -260,36 +260,42 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildTextFieldSearchMeals() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(36.0),
-        color: Color(0x2FFFFFFF),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 12.0,
-          vertical: 8.0,
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, navigatorSearchMeals);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(36.0),
+          color: Color(0x2FFFFFFF),
         ),
-        child: Row(
-          children: <Widget>[
-            Icon(
-              Icons.search,
-              color: Colors.white,
-            ),
-            Padding(padding: EdgeInsets.only(right: 8.0)),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration.collapsed(
-                  hintText: "Search...",
-                  hintStyle: TextStyle(
-                    color: Colors.white70,
-                  ),
-                ),
-                style: TextStyle(color: Colors.white),
-                maxLines: 1,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 8.0,
+          ),
+          child: Row(
+            children: <Widget>[
+              Icon(
+                Icons.search,
+                color: Colors.white,
               ),
-            ),
-          ],
+              Padding(padding: EdgeInsets.only(right: 8.0)),
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration.collapsed(
+                    hintText: "Search...",
+                    hintStyle: TextStyle(
+                      color: Colors.white70,
+                    ),
+                  ),
+                  style: TextStyle(color: Colors.white),
+                  maxLines: 1,
+                  enabled: false,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

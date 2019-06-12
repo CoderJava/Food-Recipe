@@ -157,7 +157,7 @@ class _DetailMealsScreenState extends State<DetailMealsScreen> {
       ingredients.add(ingredientItem);
     }
     return Padding(
-      padding: EdgeInsets.only(left: 8.0, top: 8.0),
+      padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
       child: ListView.builder(
         padding: EdgeInsets.all(0.0),
         shrinkWrap: true,
@@ -165,18 +165,23 @@ class _DetailMealsScreenState extends State<DetailMealsScreen> {
         itemCount: ingredients.length,
         itemBuilder: (context, index) {
           return Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.black54,
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.black54,
+                  ),
+                  width: 6.0,
+                  height: 6.0,
                 ),
-                width: 6.0,
-                height: 6.0,
               ),
               Padding(padding: EdgeInsets.only(right: 16.0)),
-              Text(ingredients[index]),
+              Expanded(
+                child: Text(ingredients[index]),
+              ),
             ],
           );
         },
@@ -280,6 +285,7 @@ class _DetailMealsScreenState extends State<DetailMealsScreen> {
 
   Widget _buildTagMeal(String strTags) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Icon(
           Icons.label,
@@ -287,10 +293,15 @@ class _DetailMealsScreenState extends State<DetailMealsScreen> {
           size: 24.0,
         ),
         Padding(padding: EdgeInsets.only(left: 4.0)),
-        Text(
-          strTags.substring(0, strTags.length - 1),
-          style: TextStyle(color: Colors.grey),
-          maxLines: 1,
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 3.5),
+            child: Text(
+              strTags != null ? strTags.substring(0, strTags.length - 1) : "N/A",
+              style: TextStyle(color: Colors.grey),
+              maxLines: 2,
+            ),
+          ),
         ),
       ],
     );

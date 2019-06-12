@@ -5,8 +5,10 @@ part 'search_meals.g.dart';
 class SearchMeals {
   @JsonKey(name: "meals")
   List<SearchMealsItem> searchMealsItems;
+  @JsonKey(ignore: true)
+  bool isLoading;
 
-  SearchMeals({this.searchMealsItems});
+  SearchMeals({this.searchMealsItems, this.isLoading = false});
 
   @override
   String toString() {

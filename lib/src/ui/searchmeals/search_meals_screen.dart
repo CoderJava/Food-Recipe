@@ -226,6 +226,7 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
         Padding(padding: EdgeInsets.only(right: 8.0)),
         Expanded(
           child: TextField(
+            autofocus: true,
             controller: _textEditingControllerKeyword,
             decoration: InputDecoration.collapsed(
               hintText: "Search...",

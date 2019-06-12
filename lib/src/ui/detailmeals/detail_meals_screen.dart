@@ -24,6 +24,20 @@ class _DetailMealsScreenState extends State<DetailMealsScreen> {
         child: Stack(
           children: <Widget>[
             _buildWidgetImageHeader(mediaQuery),
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16.0, top: 16.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: CircleAvatar(
+                    child: Icon(Icons.arrow_back, color: Colors.black87),
+                    backgroundColor: Colors.white,
+                  ),
+                ),
+              ),
+            ),
             _buildWidgetDetailMeal(mediaQuery, context),
           ],
         ),

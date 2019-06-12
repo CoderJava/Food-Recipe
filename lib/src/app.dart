@@ -21,7 +21,7 @@ class _AppState extends State<App> {
       routes: {
         navigatorListMeals: (context) {
           return ListMealsScreen();
-        }
+        },
       },
       theme: ThemeData(
         primaryColor: ColorAssets.primarySwatchColor,

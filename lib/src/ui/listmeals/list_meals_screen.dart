@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_recipe/src/blocs/list_meals_bloc.dart';
+import 'package:food_recipe/src/blocs/listmeals/list_meals_bloc.dart';
 import 'package:food_recipe/src/models/categories/categories.dart';
 import 'package:food_recipe/src/models/filtercategories/filter_categories.dart';
 import 'package:food_recipe/src/utils/utils.dart';

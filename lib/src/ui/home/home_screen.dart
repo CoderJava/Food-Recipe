@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_recipe/src/blocs/home_bloc.dart';
+import 'package:food_recipe/src/blocs/home/home_bloc.dart';
 import 'package:food_recipe/src/models/categories/categories.dart';
 import 'package:food_recipe/src/models/latest/latest_meals.dart';
+import 'package:food_recipe/src/ui/detailmeals/detail_meals_screen.dart';
 import 'package:food_recipe/src/utils/utils.dart';
 import 'package:food_recipe/values/color_assets.dart';
 
@@ -117,7 +118,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.only(right: 4.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, navigatorListMeals, arguments: category);
+                        Navigator.pushNamed(context, navigatorListMeals,
+                            arguments: category);
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(
@@ -129,7 +131,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Column(
                             children: <Widget>[
                               Hero(
-                                tag: "label_item_category_${category.idCategory}",
+                                tag:
+                                    "label_item_category_${category.idCategory}",
                                 child: Text(
                                   category.strCategory,
                                   textAlign: TextAlign.center,
@@ -184,38 +187,58 @@ class _HomeScreenState extends State<HomeScreen> {
                 var latestMealsItem = latestMeals.latestMealsItems[index];
                 return Padding(
                   padding: const EdgeInsets.only(right: 8.0),
-                  child: Card(
-                    elevation: 4.0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0)),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16.0),
-                        topRight: Radius.circular(16.0),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            child: FadeInImage(
-                              image: NetworkImage(
-                                latestMealsItem.strMealThumb,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return DetailMealsScreen(
+                              latestMealsItem.idMeal,
+                              latestMealsItem.strMeal,
+                              latestMealsItem.strMealThumb,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    child: Card(
+                      elevation: 4.0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16.0),
+                          topRight: Radius.circular(16.0),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              child: Hero(
+                                tag:
+                                    "image_detail_meals_${latestMealsItem.idMeal}",
+                                child: FadeInImage(
+                                  image: NetworkImage(
+                                    latestMealsItem.strMealThumb,
+                                  ),
+                                  placeholder: AssetImage(
+                                    "assets/images/img_placeholder.jpg",
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              placeholder: AssetImage(
-                                "assets/images/img_placeholder.jpg",
-                              ),
-                              fit: BoxFit.cover,
+                              width: mediaQuery.size.width - 96.0,
+                              height: mediaQuery.size.width / 2, // 192.0
                             ),
-                            width: mediaQuery.size.width - 96.0,
-                            height: mediaQuery.size.width / 2, // 192.0
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(latestMealsItem.strMeal,
-                                maxLines: 2,
-                                style: Theme.of(context).textTheme.subhead),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(latestMealsItem.strMeal,
+                                  maxLines: 2,
+                                  style: Theme.of(context).textTheme.subhead),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_recipe/src/blocs/listmeals/list_meals_bloc.dart';
 import 'package:food_recipe/src/models/categories/categories.dart';
 import 'package:food_recipe/src/models/filtercategories/filter_categories.dart';
+import 'package:food_recipe/src/ui/detailmeals/detail_meals_screen.dart';
 import 'package:food_recipe/src/utils/utils.dart';
 
 class ListMealsScreen extends StatefulWidget {
@@ -74,8 +75,16 @@ class _ListMealsScreenState extends State<ListMealsScreen> {
                         padding: const EdgeInsets.only(bottom: 16.0),
                         child: GestureDetector(
                           onTap: () {
-                            // TODO: do something in here
-                            print("tap item list meals");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) {
+                                return DetailMealsScreen(
+                                  filterCategoryItem.idMeal,
+                                  filterCategoryItem.strMeal,
+                                  filterCategoryItem.strMealThumb,
+                                );
+                              }),
+                            );
                           },
                           child: Card(
                             elevation: 8.0,
@@ -86,14 +95,17 @@ class _ListMealsScreenState extends State<ListMealsScreen> {
                               borderRadius: BorderRadius.circular(16.0),
                               child: Stack(
                                 children: <Widget>[
-                                  FadeInImage(
-                                    image: NetworkImage(
-                                        filterCategoryItem.strMealThumb),
-                                    placeholder: AssetImage(
-                                        "assets/images/img_placeholder.jpg"),
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                    height: mediaQuery.size.width / 1.5,
+                                  Hero(
+                                    tag: "image_detail_meals_${filterCategoryItem.idMeal}",
+                                    child: FadeInImage(
+                                      image: NetworkImage(
+                                          filterCategoryItem.strMealThumb),
+                                      placeholder: AssetImage(
+                                          "assets/images/img_placeholder.jpg"),
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: mediaQuery.size.width / 1.5,
+                                    ),
                                   ),
                                   Container(
                                     width: double.infinity,
@@ -115,13 +127,15 @@ class _ListMealsScreenState extends State<ListMealsScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(16.0),
                                     child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Expanded(
                                           child: Text(
                                             filterCategoryItem.strMeal,
-                                            style:
-                                                Theme.of(context).textTheme.title,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .title,
                                             maxLines: 2,
                                           ),
                                         ),

@@ -32,6 +32,9 @@ dependencies:
   # Flutter plugin for SQLite.
   sqflite: ^1.1.5
 
+  # Flutter plugin for getting commonly used locations on the Android & iOS.
+  path_provider: ^1.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

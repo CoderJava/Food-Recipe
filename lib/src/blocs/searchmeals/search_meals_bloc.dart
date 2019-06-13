@@ -1,9 +1,9 @@
 import 'package:food_recipe/src/models/searchmeals/search_meals.dart';
-import 'package:food_recipe/src/resources/repository.dart';
+import 'package:food_recipe/src/resources/food_api_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SearchMealsBloc {
-  final _repository = Repository();
+  final _repository = FoodApiRepository();
   final _publishSubjectSearchMealsByKeyword = PublishSubject<SearchMeals>();
 
   dispose() {

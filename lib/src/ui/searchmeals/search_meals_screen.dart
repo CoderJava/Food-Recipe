@@ -145,6 +145,7 @@ class _SearchMealsScreenState extends State<SearchMealsScreen> {
                                 GestureDetector(
                                   onTap: () {
                                     // TODO: do something in here
+                                    print("tap favorite");
                                   },
                                   child: CircleAvatar(
                                     backgroundColor: Color(0xAFE8364B),

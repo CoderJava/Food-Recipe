@@ -24,8 +24,10 @@ class FilterCategoryItem {
   String strMeal;
   String strMealThumb;
   String idMeal;
+  @JsonKey(ignore: true)
+  bool isFavorite;
 
-  FilterCategoryItem({this.strMeal, this.strMealThumb, this.idMeal});
+  FilterCategoryItem({this.strMeal, this.strMealThumb, this.idMeal, this.isFavorite = false});
 
   @override
   String toString() {

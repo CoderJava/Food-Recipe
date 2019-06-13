@@ -11,7 +11,7 @@ import 'package:food_recipe/src/models/searchmeals/search_meals.dart';
 
 import 'food_api_provider.dart';
 
-class Repository {
+class FoodApiRepository {
   final foodApiProvider = FoodApiProvider();
 
   Future<RandomMeals> getRandomMeals() => foodApiProvider.getRandomMeals();

@@ -4,10 +4,11 @@ import 'package:rxdart/rxdart.dart';
 
 class SearchMealsBloc {
   final _repository = FoodApiRepository();
+  // ignore: close_sinks
   final _publishSubjectSearchMealsByKeyword = PublishSubject<SearchMeals>();
 
   dispose() {
-    _publishSubjectSearchMealsByKeyword.close();
+    /*_publishSubjectSearchMealsByKeyword.close();*/
   }
 
   Observable<SearchMeals> get resultSearchMealsByKeyword =>

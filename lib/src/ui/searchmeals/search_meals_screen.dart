@@ -240,7 +240,9 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
             textInputAction: TextInputAction.search,
             onChanged: (value) {
               setState(() {});
-              searchMealsBloc.searchMealsByKeyword(value);
+              if (value.isEmpty) {
+                searchMealsBloc.searchMealsByKeyword(value);
+              }
             },
             onSubmitted: (value) {
               setState(() {});

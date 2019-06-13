@@ -74,6 +74,8 @@ class SearchMealsItem {
   String strMeasure20;
   String strSource;
   String dateModified;
+  @JsonKey(ignore: true)
+  bool isFavorite;
 
   SearchMealsItem({this.idMeal, this.strMeal, this.strDrinkAlternate,
       this.strCategory, this.strArea, this.strInstructions, this.strMealThumb,
@@ -89,7 +91,7 @@ class SearchMealsItem {
       this.strMeasure9, this.strMeasure10, this.strMeasure11, this.strMeasure12,
       this.strMeasure13, this.strMeasure14, this.strMeasure15,
       this.strMeasure16, this.strMeasure17, this.strMeasure18,
-      this.strMeasure19, this.strMeasure20, this.strSource, this.dateModified});
+      this.strMeasure19, this.strMeasure20, this.strSource, this.dateModified, this.isFavorite = false});
 
   @override
   String toString() {

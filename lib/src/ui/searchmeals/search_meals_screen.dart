@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe/src/blocs/searchmeals/search_meals_bloc.dart';
+import 'package:food_recipe/src/database/entity/favorite_meal.dart';
+import 'package:food_recipe/src/models/lookupmealsbyid/lookup_meals_by_id.dart';
 import 'package:food_recipe/src/models/searchmeals/search_meals.dart';
 import 'package:food_recipe/src/ui/detailmeals/detail_meals_screen.dart';
 import 'package:food_recipe/src/utils/utils.dart';
@@ -11,7 +13,6 @@ class SearchMealsScreen extends StatefulWidget {
 }
 
 class _SearchMealsScreenState extends State<SearchMealsScreen> {
-
   @override
   void dispose() {
     searchMealsBloc.dispose();
@@ -68,7 +69,8 @@ class _SearchMealsScreenState extends State<SearchMealsScreen> {
           SearchMeals searchMeals = snapshot.data;
           if (searchMeals.isLoading) {
             return Center(child: buildCircularProgressIndicator());
-          } else if (searchMeals.searchMealsItems == null || searchMeals.searchMealsItems.isEmpty) {
+          } else if (searchMeals.searchMealsItems == null ||
+              searchMeals.searchMealsItems.isEmpty) {
             return Container();
           }
           return ListView.builder(
@@ -76,94 +78,7 @@ class _SearchMealsScreenState extends State<SearchMealsScreen> {
             itemCount: searchMeals.searchMealsItems.length,
             itemBuilder: (context, index) {
               var searchMealsItem = searchMeals.searchMealsItems[index];
-              return Padding(
-                padding: EdgeInsets.only(bottom: 16.0),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return DetailMealsScreen(
-                            searchMealsItem.idMeal,
-                            searchMealsItem.strMeal,
-                            searchMealsItem.strMealThumb,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                  child: Card(
-                    elevation: 8.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16.0),
-                      child: Stack(
-                        children: <Widget>[
-                          Hero(
-                            tag: "image_detail_meals_${searchMealsItem.idMeal}",
-                            child: FadeInImage(
-                              image: NetworkImage(searchMealsItem.strMealThumb),
-                              placeholder: AssetImage(
-                                  "assets/images/img_placeholder.jpg"),
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: mediaQuery.size.width / 1.5,
-                            ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            height: mediaQuery.size.width / 1.5,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  stops: [
-                                    0.1,
-                                    0.9
-                                  ],
-                                  colors: [
-                                    Color(0xFFFFFFFF),
-                                    Color(0x00FFFFFF),
-                                  ]),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Expanded(
-                                  child: Text(
-                                    searchMealsItem.strMeal,
-                                    style: Theme.of(context).textTheme.title,
-                                    maxLines: 2,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    // TODO: do something in here
-                                    print("tap favorite");
-                                  },
-                                  child: CircleAvatar(
-                                    backgroundColor: Color(0xAFE8364B),
-                                    child: Icon(
-                                      Icons.favorite_border,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              );
+              return CardMeal(searchMealsItem);
             },
           );
         } else if (snapshot.hasError) {
@@ -204,6 +119,147 @@ class _SearchMealsScreenState extends State<SearchMealsScreen> {
           ),
         )
       ],
+    );
+  }
+}
+
+class CardMeal extends StatefulWidget {
+  final SearchMealsItem searchMealsItem;
+
+  CardMeal(this.searchMealsItem);
+
+  @override
+  _CardMealState createState() => _CardMealState();
+}
+
+class _CardMealState extends State<CardMeal> {
+  @override
+  Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
+    return Padding(
+      padding: EdgeInsets.only(bottom: 16.0),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return DetailMealsScreen(
+                  widget.searchMealsItem.idMeal,
+                  widget.searchMealsItem.strMeal,
+                  widget.searchMealsItem.strMealThumb,
+                );
+              },
+            ),
+          );
+        },
+        child: Card(
+          elevation: 8.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16.0),
+            child: Stack(
+              children: <Widget>[
+                Hero(
+                  tag: "image_detail_meals_${widget.searchMealsItem.idMeal}",
+                  child: FadeInImage(
+                    image: NetworkImage(widget.searchMealsItem.strMealThumb),
+                    placeholder:
+                        AssetImage("assets/images/img_placeholder.jpg"),
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: mediaQuery.size.width / 1.5,
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  height: mediaQuery.size.width / 1.5,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        stops: [
+                          0.1,
+                          0.9
+                        ],
+                        colors: [
+                          Color(0xFFFFFFFF),
+                          Color(0x00FFFFFF),
+                        ]),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          widget.searchMealsItem.strMeal,
+                          style: Theme.of(context).textTheme.title,
+                          maxLines: 2,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          var isFavorite = widget.searchMealsItem.isFavorite;
+                          if (isFavorite) {
+                            searchMealsBloc
+                                .deleteFavoriteMealById(
+                                    widget.searchMealsItem.idMeal)
+                                .then((status) {
+                              setState(() {
+                                widget.searchMealsItem.isFavorite = !isFavorite;
+                              });
+                            });
+                          } else {
+                            Future<LookupMealsById> lookupMealsById =
+                                searchMealsBloc.getDetailMealById(
+                                    widget.searchMealsItem.idMeal);
+                            lookupMealsById.then((value) {
+                              if (value != null) {
+                                var item = value.lookupMealsbyIdItems[0];
+                                FavoriteMeal favoriteMeal =
+                                    FavoriteMeal.fromJson(item.toJson());
+                                searchMealsBloc
+                                    .addFavoriteMeal(favoriteMeal)
+                                    .then((status) {
+                                  setState(() {
+                                    widget.searchMealsItem.isFavorite =
+                                        !isFavorite;
+                                  });
+                                });
+                              } else {
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                    content:
+                                        Text("Failed added to favorite meal")));
+                              }
+                            });
+                          }
+                        },
+                        child: CircleAvatar(
+                          backgroundColor: Color(0xAFE8364B),
+                          child: widget.searchMealsItem.isFavorite
+                              ? Icon(
+                                  Icons.favorite,
+                                  color: Colors.white,
+                                )
+                              : Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.white,
+                                ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

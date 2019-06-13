@@ -183,7 +183,6 @@ class _CardMealState extends State<CardMeal> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("tap favorite");
                           var isFavorite = widget.filterCategoryItem.isFavorite;
                           if (isFavorite) {
                             listMealsBloc

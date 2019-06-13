@@ -145,9 +145,9 @@ class _CardMealState extends State<CardMeal> {
             MaterialPageRoute(
               builder: (context) {
                 return DetailMealsScreen(
-                  widget.searchMealsItem.idMeal,
-                  widget.searchMealsItem.strMeal,
-                  widget.searchMealsItem.strMealThumb,
+                  idMeal: widget.searchMealsItem.idMeal,
+                  strMeal: widget.searchMealsItem.strMeal,
+                  strMealThumb: widget.searchMealsItem.strMealThumb,
                 );
               },
             ),

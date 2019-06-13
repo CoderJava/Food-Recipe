@@ -5,16 +5,16 @@ import 'package:food_recipe/src/resources/food_api_repository.dart';
 class HomeBloc {
   final _repository = FoodApiRepository();
 
+  dispose() {
+    // TODO: do something in here
+  }
+
   Future<LatestMeals> getLatestMeals() async {
     return await _repository.getLatestMeals();
   }
 
   Future<Categories> getCategories() async {
     return await _repository.getCategories();
-  }
-
-  dispose() {
-    // TODO: do something in here
   }
 
 }

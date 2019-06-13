@@ -32,7 +32,7 @@ class _ListMealsScreenState extends State<ListMealsScreen> {
         height: double.infinity,
         child: Stack(
           children: <Widget>[
-            _buildWidgetBackgroundCircle(mediaQuery),
+            buildWidgetBackgroundCircle(mediaQuery),
             _buildWidgetContent(mediaQuery),
           ],
         ),
@@ -87,21 +87,6 @@ class _ListMealsScreenState extends State<ListMealsScreen> {
       ),
     );
   }
-
-  Widget _buildWidgetBackgroundCircle(MediaQueryData mediaQuery) {
-    return Positioned(
-      top: -100.0,
-      left: -100.0,
-      child: Container(
-        width: mediaQuery.size.height / 2.2,
-        height: mediaQuery.size.height / 2.2,
-        decoration: BoxDecoration(
-          color: Color(0x3FE8364B),
-          shape: BoxShape.circle,
-        ),
-      ),
-    );
-  }
 }
 
 class CardMeal extends StatefulWidget {
@@ -125,9 +110,9 @@ class _CardMealState extends State<CardMeal> {
             context,
             MaterialPageRoute(builder: (context) {
               return DetailMealsScreen(
-                widget.filterCategoryItem.idMeal,
-                widget.filterCategoryItem.strMeal,
-                widget.filterCategoryItem.strMealThumb,
+                idMeal: widget.filterCategoryItem.idMeal,
+                strMeal: widget.filterCategoryItem.strMeal,
+                strMealThumb: widget.filterCategoryItem.strMealThumb,
               );
             }),
           );
@@ -157,16 +142,14 @@ class _CardMealState extends State<CardMeal> {
                   height: mediaQuery.size.width / 1.5,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        stops: [
-                          0.1,
-                          0.9
-                        ],
-                        colors: [
-                          Color(0xFFFFFFFF),
-                          Color(0x00FFFFFF),
-                        ]),
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: [0.1, 0.9],
+                      colors: [
+                        Color(0xFFFFFFFF),
+                        Color(0x00FFFFFF),
+                      ],
+                    ),
                   ),
                 ),
                 Padding(

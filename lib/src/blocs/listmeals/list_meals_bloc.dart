@@ -8,6 +8,10 @@ class ListMealsBloc {
   final _foodApiRepository = FoodApiRepository();
   final _favoriteMealRepository = FavoriteMealRepository();
 
+  dispose() {
+    // TODO: do something in here
+  }
+
   Future<FilterCategories> getFilterCategories(String category) async {
     FilterCategories filterCategories =
         await _foodApiRepository.getFilterByCategories(category);
@@ -40,10 +44,6 @@ class ListMealsBloc {
 
   Future<int> deleteFavoriteMealById(String id) async {
     return await _favoriteMealRepository.deleteFavoriteMealById(id);
-  }
-
-  dispose() {
-    // TODO: do something in here
   }
 }
 

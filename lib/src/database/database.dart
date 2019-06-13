@@ -28,7 +28,7 @@ class DatabaseProvider {
 
   void onUpgrade(Database database, int oldVersion, int newVersion) {
     if (newVersion > oldVersion) {
-      // TODO: do something in here if needed
+      // TODO: do something in here if needed to upgrade database version
     }
   }
 
@@ -41,6 +41,7 @@ class DatabaseProvider {
         "strTags TEXT, "
         "strYoutube TEXT, "
         "strArea TEXT, "
+        "strInstructions TEXT, "
         "strIngredient1 TEXT, "
         "strIngredient2 TEXT, "
         "strIngredient3 TEXT, "

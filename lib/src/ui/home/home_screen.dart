@@ -194,9 +194,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         MaterialPageRoute(
                           builder: (context) {
                             return DetailMealsScreen(
-                              latestMealsItem.idMeal,
-                              latestMealsItem.strMeal,
-                              latestMealsItem.strMealThumb,
+                              idMeal: latestMealsItem.idMeal,
+                              strMeal: latestMealsItem.strMeal,
+                              strMealThumb: latestMealsItem.strMealThumb,
                             );
                           },
                         ),

@@ -13,3 +13,18 @@ Widget buildCircularProgressIndicator() {
     return CircularProgressIndicator();
   }
 }
+
+Widget buildWidgetBackgroundCircle(MediaQueryData mediaQuery) {
+  return Positioned(
+    top: -100.0,
+    left: -100.0,
+    child: Container(
+      width: mediaQuery.size.height / 2.2,
+      height: mediaQuery.size.height / 2.2,
+      decoration: BoxDecoration(
+        color: Color(0x3FE8364B),
+        shape: BoxShape.circle,
+      ),
+    ),
+  );
+}

@@ -81,7 +81,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             onTap: () {
                               Navigator.push(context, MaterialPageRoute(
                                 builder: (context) {
-                                  print("favoriteMeal: $favoriteMeal");
                                   return DetailMealsScreen(
                                     favoriteMeal: favoriteMeal,
                                   );
@@ -142,7 +141,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              print("favorite item tapped");
                                               _favoriteBloc
                                                   .removeFavoriteMealById(
                                                       favoriteMeal.idMeal);

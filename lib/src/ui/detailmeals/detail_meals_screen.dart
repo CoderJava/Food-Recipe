@@ -114,7 +114,7 @@ class _DetailMealsScreenState extends State<DetailMealsScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _buildTagMeal(detailMeals?.strTags ?? widget.favoriteMeal.strTags),
+        _buildTagMeal(detailMeals?.strTags ?? widget.favoriteMeal?.strTags ?? null),
         Padding(padding: EdgeInsets.only(top: 24.0)),
         _buildWidgetPanelInfoGeneralMeal(detailMeals),
         Padding(padding: EdgeInsets.only(top: 24.0)),
@@ -129,7 +129,7 @@ class _DetailMealsScreenState extends State<DetailMealsScreen> {
           style: Theme.of(context).textTheme.title,
         ),
         _buildWidgetInfoInstructions(
-          detailMeals?.strInstructions ?? widget.favoriteMeal.strInstructions,
+          detailMeals?.strInstructions ?? widget.favoriteMeal?.strInstructions ?? "",
         ),
       ],
     );
@@ -137,8 +137,8 @@ class _DetailMealsScreenState extends State<DetailMealsScreen> {
 
   Widget _buildWidgetInfoInstructions(String strInstructions) {
     return Padding(
-      padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
-      child: Text(strInstructions),
+      padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0, bottom: 16.0),
+      child: Text(strInstructions.isEmpty ? "N/A" : strInstructions),
     );
   }
 
@@ -315,17 +315,17 @@ class _DetailMealsScreenState extends State<DetailMealsScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         _buildWidgetInfoPlayVideo(
-            detailMeals?.strYoutube ?? widget.favoriteMeal.strYoutube),
+            detailMeals?.strYoutube ?? widget.favoriteMeal?.strYoutube ?? ""),
         Padding(padding: EdgeInsets.only(left: 8.0)),
         _buildVerticalDivider(),
         Padding(padding: EdgeInsets.only(left: 8.0)),
         _buildWidgetInfoCategoryMeal(
-            detailMeals?.strCategory ?? widget.favoriteMeal.strCategory),
+            detailMeals?.strCategory ?? widget.favoriteMeal?.strCategory ?? ""),
         Padding(padding: EdgeInsets.only(left: 8.0)),
         _buildVerticalDivider(),
         Padding(padding: EdgeInsets.only(left: 8.0)),
         _buildWidgetInfoCountryMeal(
-            detailMeals?.strArea ?? widget.favoriteMeal.strArea),
+            detailMeals?.strArea ?? widget.favoriteMeal?.strArea ?? ""),
         Padding(padding: EdgeInsets.only(left: 8.0)),
       ],
     );
@@ -335,7 +335,7 @@ class _DetailMealsScreenState extends State<DetailMealsScreen> {
     return Column(
       children: <Widget>[
         Text("Country"),
-        Text(strArea, style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(strArea.isEmpty ? "N/A" : strArea, style: TextStyle(fontWeight: FontWeight.bold)),
       ],
     );
   }
@@ -344,7 +344,7 @@ class _DetailMealsScreenState extends State<DetailMealsScreen> {
     return Column(
       children: <Widget>[
         Text("Category"),
-        Text(strCategory, style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(strCategory.isEmpty ? "N/A" : strCategory, style: TextStyle(fontWeight: FontWeight.bold)),
       ],
     );
   }

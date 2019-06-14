@@ -6,13 +6,12 @@ import 'package:food_recipe/src/resources/food_api_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SearchMealsBloc {
-  // ignore: close_sinks
   final _publishSubjectSearchMealsByKeyword = PublishSubject<SearchMeals>();
   final _foodApiRepository = FoodApiRepository();
   final _favoriteMealRepository = FavoriteMealRepository();
 
   dispose() {
-    /*_publishSubjectSearchMealsByKeyword.close();*/
+    _publishSubjectSearchMealsByKeyword.close();
   }
 
   Observable<SearchMeals> get resultSearchMealsByKeyword =>
@@ -28,6 +27,10 @@ class SearchMealsBloc {
           await _foodApiRepository.getSearchMealsByKeyword(keyword);
       List<FavoriteMeal> listFavoriteMeals =
           await _favoriteMealRepository.getAllFavoriteMeals();
+      if (searchMeals.searchMealsItems == null) {
+        _publishSubjectSearchMealsByKeyword.sink.add(SearchMeals(searchMealsItems: []));
+        return;
+      }
       List<SearchMealsItem> listSearchMealsItem =
           searchMeals.searchMealsItems.where((searchMealsItem) {
         for (FavoriteMeal favoriteMeal in listFavoriteMeals) {
@@ -57,5 +60,3 @@ class SearchMealsBloc {
     return await _favoriteMealRepository.deleteFavoriteMealById(id);
   }
 }
-
-final searchMealsBloc = SearchMealsBloc();

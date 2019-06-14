@@ -13,9 +13,17 @@ class SearchMealsScreen extends StatefulWidget {
 }
 
 class _SearchMealsScreenState extends State<SearchMealsScreen> {
+  SearchMealsBloc _searchMealsBloc;
+
+  @override
+  void initState() {
+    _searchMealsBloc = SearchMealsBloc();
+    super.initState();
+  }
+
   @override
   void dispose() {
-    searchMealsBloc.dispose();
+    _searchMealsBloc.dispose();
     super.dispose();
   }
 
@@ -63,7 +71,7 @@ class _SearchMealsScreenState extends State<SearchMealsScreen> {
 
   Widget _buildResultSearchMeals(MediaQueryData mediaQuery) {
     return StreamBuilder(
-      stream: searchMealsBloc.resultSearchMealsByKeyword,
+      stream: _searchMealsBloc.resultSearchMealsByKeyword,
       builder: (BuildContext context, AsyncSnapshot<SearchMeals> snapshot) {
         if (snapshot.hasData) {
           SearchMeals searchMeals = snapshot.data;
@@ -78,7 +86,7 @@ class _SearchMealsScreenState extends State<SearchMealsScreen> {
             itemCount: searchMeals.searchMealsItems.length,
             itemBuilder: (context, index) {
               var searchMealsItem = searchMeals.searchMealsItems[index];
-              return CardMeal(searchMealsItem);
+              return CardMeal(searchMealsItem, _searchMealsBloc);
             },
           );
         } else if (snapshot.hasError) {
@@ -100,7 +108,7 @@ class _SearchMealsScreenState extends State<SearchMealsScreen> {
           horizontal: 12.0,
           vertical: 8.0,
         ),
-        child: TextFieldSearch(),
+        child: TextFieldSearch(_searchMealsBloc),
       ),
     );
   }
@@ -125,8 +133,9 @@ class _SearchMealsScreenState extends State<SearchMealsScreen> {
 
 class CardMeal extends StatefulWidget {
   final SearchMealsItem searchMealsItem;
+  final SearchMealsBloc searchMealsBloc;
 
-  CardMeal(this.searchMealsItem);
+  CardMeal(this.searchMealsItem, this.searchMealsBloc);
 
   @override
   _CardMealState createState() => _CardMealState();
@@ -206,7 +215,7 @@ class _CardMealState extends State<CardMeal> {
                         onTap: () {
                           var isFavorite = widget.searchMealsItem.isFavorite;
                           if (isFavorite) {
-                            searchMealsBloc
+                            widget.searchMealsBloc
                                 .deleteFavoriteMealById(
                                     widget.searchMealsItem.idMeal)
                                 .then((status) {
@@ -216,14 +225,14 @@ class _CardMealState extends State<CardMeal> {
                             });
                           } else {
                             Future<LookupMealsById> lookupMealsById =
-                                searchMealsBloc.getDetailMealById(
+                                widget.searchMealsBloc.getDetailMealById(
                                     widget.searchMealsItem.idMeal);
                             lookupMealsById.then((value) {
                               if (value != null) {
                                 var item = value.lookupMealsbyIdItems[0];
                                 FavoriteMeal favoriteMeal =
                                     FavoriteMeal.fromJson(item.toJson());
-                                searchMealsBloc
+                                widget.searchMealsBloc
                                     .addFavoriteMeal(favoriteMeal)
                                     .then((status) {
                                   setState(() {
@@ -265,6 +274,10 @@ class _CardMealState extends State<CardMeal> {
 }
 
 class TextFieldSearch extends StatefulWidget {
+  final SearchMealsBloc searchMealsBloc;
+
+  TextFieldSearch(this.searchMealsBloc);
+
   @override
   _TextFieldSearchState createState() => _TextFieldSearchState();
 }
@@ -297,12 +310,12 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
             onChanged: (value) {
               setState(() {});
               if (value.isEmpty) {
-                searchMealsBloc.searchMealsByKeyword(value);
+                widget.searchMealsBloc.searchMealsByKeyword(value);
               }
             },
             onSubmitted: (value) {
               setState(() {});
-              searchMealsBloc.searchMealsByKeyword(value);
+              widget.searchMealsBloc.searchMealsByKeyword(value);
             },
           ),
         ),
@@ -311,7 +324,7 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
             : GestureDetector(
                 onTap: () {
                   setState(() => _textEditingControllerKeyword.clear());
-                  searchMealsBloc.searchMealsByKeyword("");
+                  widget.searchMealsBloc.searchMealsByKeyword("");
                 },
                 child: Icon(
                   Icons.clear,

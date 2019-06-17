@@ -27,6 +27,21 @@ class _HomeScreenState extends State<HomeScreen> {
         SafeArea(
           child: ListView(
             children: <Widget>[
+              Align(
+                alignment: Alignment.topRight,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, navigatorInfoApp);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16.0, right: 16.0),
+                    child: Icon(
+                      Icons.info_outline,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
               _buildWidgetContent(),
             ],
           ),
@@ -60,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(padding: EdgeInsets.only(top: 16.0 + mediaQuery.padding.top)),
+          Padding(padding: EdgeInsets.only(top: 16.0)),
           Text(
             "What are you\nCooking today ?",
             style: Theme.of(context).textTheme.display1.merge(

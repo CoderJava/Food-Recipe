@@ -3,6 +3,7 @@ import 'package:food_recipe/values/color_assets.dart';
 
 import 'ui/favorite/favorite_screen.dart';
 import 'ui/home/home_screen.dart';
+import 'ui/infoapp/info_app_screen.dart';
 import 'ui/listmeals/list_meals_screen.dart';
 import 'ui/searchmeals/search_meals_screen.dart';
 import 'utils/utils.dart';
@@ -25,7 +26,10 @@ class _AppState extends State<App> {
         },
         navigatorSearchMeals: (context) {
           return SearchMealsScreen();
-        }
+        },
+        navigatorInfoApp: (context) {
+          return InfoAppScreen();
+        },
       },
       theme: ThemeData(
         primaryColor: ColorAssets.primarySwatchColor,

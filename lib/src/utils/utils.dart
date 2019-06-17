@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 const navigatorListMeals = "/list_meals";
 const navigatorSearchMeals = "/search_meals";
+const navigatorInfoApp = "/info_app";
 
 Widget buildCircularProgressIndicator() {
   if (Platform.isIOS) {

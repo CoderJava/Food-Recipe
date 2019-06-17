@@ -32,6 +32,7 @@ class _SearchMealsScreenState extends State<SearchMealsScreen> {
     var mediaQuery = MediaQuery.of(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         child: Stack(
           children: <Widget>[

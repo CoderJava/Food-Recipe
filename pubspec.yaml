@@ -14,30 +14,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-  # Reactive functional programming library for Google Dart, based on ReactiveX.
-  rxdart: ^0.22.0
-
-  # A powerful Http client for Dart.
-  dio: ^2.1.7
-
-  # Automatically generate code for converting to and from JSON
-  json_serializable: ^3.0.0
-
-  # Tools to write binaries that run builders.
-  build_runner: ^1.5.1
-
-  # Flutter plugin for launching a URL on Android and iOS.
-  url_launcher: ^5.0.3
-
-  # Flutter plugin for SQLite.
-  sqflite: ^1.1.5
-
-  # Flutter plugin for getting commonly used locations on the Android & iOS.
-  path_provider: ^1.1.0
-
-  # Get the version name, version code, platform, OS version and app ID.
-  get_version: ^0.1.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

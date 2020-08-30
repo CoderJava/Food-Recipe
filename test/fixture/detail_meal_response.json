@@ -1,0 +1,18 @@
+{
+  "meals": [
+    {
+      "idMeal": "testIdMeal",
+      "strMeal": "testStrMeal",
+      "strCategory": "testStrCategory",
+      "strArea": "testStrArea",
+      "strInstructions": "testStrInstructions",
+      "strMealThumb": "testStrMealThumb",
+      "strTags": "testStrTags",
+      "strYoutube": "testStrYoutube",
+      "listIngredients": [
+        "testListIngredients"
+      ],
+      "strSource": "testStrSource"
+    }
+  ]
+}

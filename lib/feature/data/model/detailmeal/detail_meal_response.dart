@@ -6,26 +6,6 @@ part 'detail_meal_response.g.dart';
 
 @JsonSerializable()
 class DetailMealResponse extends Equatable {
-  @JsonKey(name: 'meals')
-  final List<ItemDetailMeal> meals;
-
-  DetailMealResponse({@required this.meals});
-
-  factory DetailMealResponse.fromJson(Map<String, dynamic> json) => _$DetailMealResponseFromJson(json);
-
-  Map<String, dynamic> toJson() => _$DetailMealResponseToJson(this);
-
-  @override
-  List<Object> get props => [meals];
-
-  @override
-  String toString() {
-    return 'DetailMealResponse{meals: $meals}';
-  }
-}
-
-@JsonSerializable()
-class ItemDetailMeal extends Equatable {
   @JsonKey(name: 'idMeal')
   final String idMeal;
   @JsonKey(name: 'strMeal')
@@ -46,7 +26,7 @@ class ItemDetailMeal extends Equatable {
   @JsonKey(name: 'strSource')
   final String strSource;
 
-  ItemDetailMeal({
+  DetailMealResponse({
     @required this.idMeal,
     @required this.strMeal,
     @required this.strCategory,
@@ -59,9 +39,9 @@ class ItemDetailMeal extends Equatable {
     @required this.strSource,
   });
 
-  factory ItemDetailMeal.fromJson(Map<String, dynamic> json) => _$ItemDetailMealFromJson(json);
+  factory DetailMealResponse.fromJson(Map<String, dynamic> json) => _$DetailMealResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ItemDetailMealToJson(this);
+  Map<String, dynamic> toJson() => _$DetailMealResponseToJson(this);
 
   @override
   List<Object> get props => [
@@ -79,7 +59,7 @@ class ItemDetailMeal extends Equatable {
 
   @override
   String toString() {
-    return 'ItemDetailMeal{idMeal: $idMeal, strMeal: $strMeal, strCategory: $strCategory, strArea: $strArea, '
+    return 'DetailMealResponse{idMeal: $idMeal, strMeal: $strMeal, strCategory: $strCategory, strArea: $strArea, '
         'strInstructions: $strInstructions, strMealThumb: $strMealThumb, strTags: $strTags, strYoutube: $strYoutube, '
         'listIngredients: $listIngredients, strSource: $strSource}';
   }

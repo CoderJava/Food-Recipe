@@ -13,21 +13,42 @@ void main() {
   );
 
   test(
-    'pastikan nilai props adalah [meals]',
+    'pastikan nilai props adalah [idMeal, strMeal, strCategory, strArea, strInstructions, strMealThumb, strTags, '
+    'strYoutube, listIngredients, strSource]',
     () async {
       // assert
-      expect(tDetailMealResponse.props, [tDetailMealResponse.meals]);
+      expect(
+        tDetailMealResponse.props,
+        [
+          tDetailMealResponse.idMeal,
+          tDetailMealResponse.strMeal,
+          tDetailMealResponse.strCategory,
+          tDetailMealResponse.strArea,
+          tDetailMealResponse.strInstructions,
+          tDetailMealResponse.strMealThumb,
+          tDetailMealResponse.strTags,
+          tDetailMealResponse.strYoutube,
+          tDetailMealResponse.listIngredients,
+          tDetailMealResponse.strSource,
+        ],
+      );
     },
   );
 
   test(
     'pastikan output dari fungsi toString adalah '
-    'DetailMealResponse{meals: testMeals}',
+    'DetailMealResponse{idMeal: testIdMeal, strMeal: testStrMeal, strCategory: testStrCategory, strArea: testStrArea, '
+    'strInstructions: testStrInstructions, strMealThumb: testStrMealThumb, strTags: testStrTags, '
+    'strYoutube: testStrYoutube, listIngredients: testListIngredients, strSource: testStrSource}',
     () async {
       // assert
       expect(
         tDetailMealResponse.toString(),
-        'DetailMealResponse{meals: ${tDetailMealResponse.meals}}',
+        'DetailMealResponse{idMeal: ${tDetailMealResponse.idMeal}, strMeal: ${tDetailMealResponse.strMeal}, '
+        'strCategory: ${tDetailMealResponse.strCategory}, strArea: ${tDetailMealResponse.strArea}, '
+        'strInstructions: ${tDetailMealResponse.strInstructions}, strMealThumb: ${tDetailMealResponse.strMealThumb}, '
+        'strTags: ${tDetailMealResponse.strTags}, strYoutube: ${tDetailMealResponse.strYoutube}, '
+        'listIngredients: ${tDetailMealResponse.listIngredients}, strSource: ${tDetailMealResponse.strSource}}',
       );
     },
   );

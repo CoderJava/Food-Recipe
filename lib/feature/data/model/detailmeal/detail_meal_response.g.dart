@@ -8,21 +8,6 @@ part of 'detail_meal_response.dart';
 
 DetailMealResponse _$DetailMealResponseFromJson(Map<String, dynamic> json) {
   return DetailMealResponse(
-    meals: (json['meals'] as List)
-        ?.map((e) => e == null
-            ? null
-            : ItemDetailMeal.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  );
-}
-
-Map<String, dynamic> _$DetailMealResponseToJson(DetailMealResponse instance) =>
-    <String, dynamic>{
-      'meals': instance.meals,
-    };
-
-ItemDetailMeal _$ItemDetailMealFromJson(Map<String, dynamic> json) {
-  return ItemDetailMeal(
     idMeal: json['idMeal'] as String,
     strMeal: json['strMeal'] as String,
     strCategory: json['strCategory'] as String,
@@ -37,7 +22,7 @@ ItemDetailMeal _$ItemDetailMealFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$ItemDetailMealToJson(ItemDetailMeal instance) =>
+Map<String, dynamic> _$DetailMealResponseToJson(DetailMealResponse instance) =>
     <String, dynamic>{
       'idMeal': instance.idMeal,
       'strMeal': instance.strMeal,

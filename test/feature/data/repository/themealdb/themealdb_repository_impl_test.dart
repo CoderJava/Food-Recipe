@@ -7,6 +7,7 @@ import 'package:food_recipe/core/error/failure.dart';
 import 'package:food_recipe/core/network/network_info.dart';
 import 'package:food_recipe/feature/data/datasource/themealdb/themealdb_remote_data_source.dart';
 import 'package:food_recipe/feature/data/model/detailmeal/detail_meal_response.dart';
+import 'package:food_recipe/feature/data/model/mealcategory/meal_category_response.dart';
 import 'package:food_recipe/feature/data/repository/themealdb/themealdb_repository_impl.dart';
 import 'package:mockito/mockito.dart';
 
@@ -115,5 +116,51 @@ void main() {
     );
 
     testDisconnected(() => theMealDbRepositoryImpl.getRandomMeal());
+  });
+
+  group('getCategoryMeal', () {
+    final tMealCategoryResponse = MealCategoryResponse.fromJson(
+      json.decode(
+        fixture('meal_category_response.json'),
+      ),
+    );
+
+    testConnected(() => theMealDbRepositoryImpl.getCategoryMeal());
+
+    test(
+      'pastikan mengembalikan objek model MealCategoryResponse ketika TheMealDbRemoteDataSource berhasil menerima '
+      'respon sukses dari endpoint',
+      () async {
+        // arrange
+        setUpMockNetworkConnected();
+        when(mockTheMealDbRemoteDataSource.getCategoryMeal()).thenAnswer((_) async => tMealCategoryResponse);
+
+        // act
+        final result = await theMealDbRepositoryImpl.getCategoryMeal();
+
+        // assert
+        verify(mockTheMealDbRemoteDataSource.getCategoryMeal());
+        expect(result, Right(tMealCategoryResponse));
+      },
+    );
+
+    test(
+      'pastikan mengembalikan objek ServerFailure ketika TheMealDbRemoteDataSource menerima respon kegagalan dari '
+      'endpoint',
+      () async {
+        // arrange
+        setUpMockNetworkConnected();
+        when(mockTheMealDbRemoteDataSource.getCategoryMeal()).thenThrow(DioError(error: 'testError'));
+
+        // act
+        final result = await theMealDbRepositoryImpl.getCategoryMeal();
+
+        // assert
+        verify(mockTheMealDbRemoteDataSource.getCategoryMeal());
+        expect(result, Left(ServerFailure('testError')));
+      },
+    );
+
+    testDisconnected(() => theMealDbRepositoryImpl.getCategoryMeal());
   });
 }

@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:food_recipe/feature/data/model/detailmeal/detail_meal_response.dart';
+import 'package:food_recipe/feature/data/model/mealcategory/meal_category_response.dart';
 
 abstract class TheMealDbRemoteDataSource {
   Future<DetailMealResponse> getRandomMeal();
+
+  Future<MealCategoryResponse> getCategoryMeal();
 }
 
 class TheMealDbRemoteDataSourceImpl implements TheMealDbRemoteDataSource {
@@ -48,5 +51,17 @@ class TheMealDbRemoteDataSourceImpl implements TheMealDbRemoteDataSource {
       strSource: responseMeals[0]['strSource'],
       listIngredients: listIngredients,
     );
+  }
+
+  @override
+  Future<MealCategoryResponse> getCategoryMeal() async {
+    var response = await dio.get(
+      '/categories.php',
+    );
+    if (response.statusCode == 200) {
+      return MealCategoryResponse.fromJson(response.data);
+    } else {
+      throw DioError();
+    }
   }
 }

@@ -1,0 +1,9 @@
+{
+  "categories": [
+    {
+      "idCategory": "testIdCategory",
+      "strCategory": "testStrCategory",
+      "strCategoryThumb": "testStrCategoryThumb"
+    }
+  ]
+}

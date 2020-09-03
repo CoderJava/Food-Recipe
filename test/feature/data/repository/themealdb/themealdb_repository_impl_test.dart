@@ -7,6 +7,7 @@ import 'package:food_recipe/core/error/failure.dart';
 import 'package:food_recipe/core/network/network_info.dart';
 import 'package:food_recipe/feature/data/datasource/themealdb/themealdb_remote_data_source.dart';
 import 'package:food_recipe/feature/data/model/detailmeal/detail_meal_response.dart';
+import 'package:food_recipe/feature/data/model/filterbycategory/filter_by_category_response.dart';
 import 'package:food_recipe/feature/data/model/mealcategory/meal_category_response.dart';
 import 'package:food_recipe/feature/data/repository/themealdb/themealdb_repository_impl.dart';
 import 'package:mockito/mockito.dart';
@@ -162,5 +163,52 @@ void main() {
     );
 
     testDisconnected(() => theMealDbRepositoryImpl.getCategoryMeal());
+  });
+
+  group('getFilterByCategory', () {
+    final tCategory = 'testCategory';
+    final tFilterByCategoryResponse = FilterByCategoryResponse.fromJson(
+      json.decode(
+        fixture('filter_by_category_response.json'),
+      ),
+    );
+
+    testConnected(() => theMealDbRepositoryImpl.getFilterByCategory(tCategory));
+
+    test(
+      'pastikan mengembalikan objek model FilterByCategoryResponse ketika TheMealDbRemoteDataSource berhasil menerima '
+      'respon sukses dari endpoint',
+      () async {
+        // arrange
+        setUpMockNetworkConnected();
+        when(mockTheMealDbRemoteDataSource.getFilterByCategory(any)).thenAnswer((_) async => tFilterByCategoryResponse);
+
+        // act
+        final result = await theMealDbRepositoryImpl.getFilterByCategory(tCategory);
+
+        // assert
+        verify(mockTheMealDbRemoteDataSource.getFilterByCategory(tCategory));
+        expect(result, Right(tFilterByCategoryResponse));
+      },
+    );
+
+    test(
+      'pastikan mengembalikan objek ServerFailure ketika TheMealDbRemoteDataSource menerima respon kegagaalan dari '
+      'endpoint',
+      () async {
+        // arrange
+        setUpMockNetworkConnected();
+        when(mockTheMealDbRemoteDataSource.getFilterByCategory(any)).thenThrow(DioError(error: 'testError'));
+
+        // act
+        final result = await theMealDbRepositoryImpl.getFilterByCategory(tCategory);
+
+        // assert
+        verify(mockTheMealDbRemoteDataSource.getFilterByCategory(tCategory));
+        expect(result, Left(ServerFailure('testError')));
+      },
+    );
+
+    testDisconnected(() => theMealDbRepositoryImpl.getFilterByCategory(tCategory));
   });
 }

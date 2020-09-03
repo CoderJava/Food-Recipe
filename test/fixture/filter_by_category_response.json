@@ -1,0 +1,9 @@
+{
+  "meals": [
+    {
+      "strMeal": "testStrMeal",
+      "strMealThumb": "testStrMealThumb",
+      "idMeal": "testIdMeal"
+    }
+  ]
+}

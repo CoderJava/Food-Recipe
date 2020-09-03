@@ -9,6 +9,7 @@ import 'package:food_recipe/feature/data/datasource/themealdb/themealdb_remote_d
 import 'package:food_recipe/feature/data/model/detailmeal/detail_meal_response.dart';
 import 'package:food_recipe/feature/data/model/filterbycategory/filter_by_category_response.dart';
 import 'package:food_recipe/feature/data/model/mealcategory/meal_category_response.dart';
+import 'package:food_recipe/feature/data/model/searchmealbyname/search_meal_by_name_response.dart';
 import 'package:food_recipe/feature/data/repository/themealdb/themealdb_repository_impl.dart';
 import 'package:mockito/mockito.dart';
 
@@ -210,5 +211,52 @@ void main() {
     );
 
     testDisconnected(() => theMealDbRepositoryImpl.getFilterByCategory(tCategory));
+  });
+
+  group('searchMealByName', () {
+    final tName = 'testName';
+    final tSearchMealByNameResponse = SearchMealByNameResponse.fromJson(
+      json.decode(
+        fixture('search_meal_by_name_response.json'),
+      ),
+    );
+
+    testConnected(() => theMealDbRepositoryImpl.searchMealByName(tName));
+
+    test(
+      'pastikan mengembalikan objek model SearchMealByNameResponse ketika TheMealDbRemoteDataSource berhasil menerima '
+      'respon sukses dari endpoint',
+      () async {
+        // arrange
+        setUpMockNetworkConnected();
+        when(mockTheMealDbRemoteDataSource.searchMealByName(any)).thenAnswer((_) async => tSearchMealByNameResponse);
+
+        // act
+        final result = await theMealDbRepositoryImpl.searchMealByName(tName);
+
+        // assert
+        verify(mockTheMealDbRemoteDataSource.searchMealByName(tName));
+        expect(result, Right(tSearchMealByNameResponse));
+      },
+    );
+
+    test(
+      'pastikan mengembalikan objek ServerFailure ketika TheMealDbRemoteDataSource menerima respon kegagalan dari '
+      'endpoint',
+      () async {
+        // arrange
+        setUpMockNetworkConnected();
+        when(mockTheMealDbRemoteDataSource.searchMealByName(any)).thenThrow(DioError(error: 'testError'));
+
+        // act
+        final result = await theMealDbRepositoryImpl.searchMealByName(tName);
+
+        // assert
+        verify(mockTheMealDbRemoteDataSource.searchMealByName(tName));
+        expect(result, Left(ServerFailure('testError')));
+      },
+    );
+
+    testDisconnected(() => theMealDbRepositoryImpl.searchMealByName(tName));
   });
 }

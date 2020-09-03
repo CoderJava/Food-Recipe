@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:food_recipe/feature/data/model/filterbycategory/filter_by_category_response.dart';
 import 'package:food_recipe/feature/data/model/mealcategory/meal_category_response.dart';
+import 'package:food_recipe/feature/data/model/searchmealbyname/search_meal_by_name_response.dart';
 import 'package:matcher/matcher.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:food_recipe/config/base_url_config.dart';
@@ -199,7 +200,7 @@ void main() {
 
     test(
       'pastikan mengembalikan objek model FilterByCategoryResponse ketika menerima respon sukses (200) '
-          'dari endpoint',
+      'dari endpoint',
       () async {
         // arrange
         setUpMockDioSuccess();
@@ -224,6 +225,74 @@ void main() {
 
         // act
         final call = theMealDbRemoteDataSource.getFilterByCategory(tCategory);
+
+        // assert
+        expect(() => call, throwsA(TypeMatcher<DioError>()));
+      },
+    );
+  });
+
+  group('searchMealByName', () {
+    final tName = 'testName';
+    final tSearchMealByNameResponse = SearchMealByNameResponse.fromJson(
+      json.decode(
+        fixture('search_meal_by_name_response.json'),
+      ),
+    );
+
+    void setUpMockDioSuccess() {
+      final responsePayload = json.decode(fixture('search_meal_by_name_response.json'));
+      final response = Response(
+        data: responsePayload,
+        statusCode: 200,
+        headers: Headers.fromMap({
+          Headers.contentTypeHeader: [Headers.jsonContentType],
+        }),
+      );
+      when(mockDio.get(any, queryParameters: anyNamed('queryParameters'))).thenAnswer((_) async => response);
+    }
+
+    test(
+      'pastikan endpoint searchMealByName benar-benar terpanggil dengan method GET',
+      () async {
+        // arrange
+        setUpMockDioSuccess();
+
+        // act
+        await theMealDbRemoteDataSource.searchMealByName(tName);
+
+        // assert
+        verify(mockDio.get('/search.php', queryParameters: anyNamed('queryParameters')));
+      },
+    );
+
+    test(
+      'pastikan mengembalikan objek model SearchMealByNameResponse ketika menerima respon sukses (200) '
+      'dari endpoint',
+      () async {
+        // arrange
+        setUpMockDioSuccess();
+
+        // act
+        final result = await theMealDbRemoteDataSource.searchMealByName(tName);
+
+        // assert
+        expect(result, tSearchMealByNameResponse);
+      },
+    );
+
+    test(
+      'pastikan akan menerima exception DioError ketika menerima respon kegagalan dari endpoint',
+      () async {
+        // arrange
+        final response = Response(
+          data: 'Bad Request',
+          statusCode: 400,
+        );
+        when(mockDio.get(any, queryParameters: anyNamed('queryParameters'))).thenAnswer((_) async => response);
+
+        // act
+        final call = theMealDbRemoteDataSource.searchMealByName(tName);
 
         // assert
         expect(() => call, throwsA(TypeMatcher<DioError>()));

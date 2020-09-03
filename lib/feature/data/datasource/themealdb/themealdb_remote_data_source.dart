@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:food_recipe/feature/data/model/detailmeal/detail_meal_response.dart';
 import 'package:food_recipe/feature/data/model/filterbycategory/filter_by_category_response.dart';
 import 'package:food_recipe/feature/data/model/mealcategory/meal_category_response.dart';
+import 'package:food_recipe/feature/data/model/searchmealbyname/search_meal_by_name_response.dart';
 
 abstract class TheMealDbRemoteDataSource {
   Future<DetailMealResponse> getRandomMeal();
@@ -9,6 +10,8 @@ abstract class TheMealDbRemoteDataSource {
   Future<MealCategoryResponse> getCategoryMeal();
 
   Future<FilterByCategoryResponse> getFilterByCategory(String category);
+
+  Future<SearchMealByNameResponse> searchMealByName(String name);
 }
 
 class TheMealDbRemoteDataSourceImpl implements TheMealDbRemoteDataSource {
@@ -78,6 +81,21 @@ class TheMealDbRemoteDataSourceImpl implements TheMealDbRemoteDataSource {
     );
     if (response.statusCode == 200) {
       return FilterByCategoryResponse.fromJson(response.data);
+    } else {
+      throw DioError();
+    }
+  }
+
+  @override
+  Future<SearchMealByNameResponse> searchMealByName(String name) async {
+    var response = await dio.get(
+      '/search.php',
+      queryParameters: {
+        's': name,
+      },
+    );
+    if (response.statusCode == 200) {
+      return SearchMealByNameResponse.fromJson(response.data);
     } else {
       throw DioError();
     }

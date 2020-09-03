@@ -6,6 +6,7 @@ import 'package:food_recipe/feature/data/datasource/themealdb/themealdb_remote_d
 import 'package:food_recipe/feature/data/model/detailmeal/detail_meal_response.dart';
 import 'package:food_recipe/feature/data/model/filterbycategory/filter_by_category_response.dart';
 import 'package:food_recipe/feature/data/model/mealcategory/meal_category_response.dart';
+import 'package:food_recipe/feature/data/model/searchmealbyname/search_meal_by_name_response.dart';
 import 'package:food_recipe/feature/domain/repository/themealdb/themealdb_repository.dart';
 
 class TheMealDbRepositoryImpl implements TheMealDbRepository {
@@ -53,6 +54,21 @@ class TheMealDbRepositoryImpl implements TheMealDbRepository {
     if (isConnected) {
       try {
         var response = await theMealDbRemoteDataSource.getFilterByCategory(category);
+        return Right(response);
+      } on DioError catch (error) {
+        return Left(ServerFailure(error.message));
+      }
+    } else {
+      return Left(ConnectionFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SearchMealByNameResponse>> searchMealByName(String name) async {
+    var isConnected = await networkInfo.isConnected;
+    if (isConnected) {
+      try {
+        var response = await theMealDbRemoteDataSource.searchMealByName(name);
         return Right(response);
       } on DioError catch (error) {
         return Left(ServerFailure(error.message));

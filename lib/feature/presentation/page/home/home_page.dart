@@ -5,6 +5,7 @@ import 'package:food_recipe/feature/data/model/filterbycategory/filter_by_catego
 import 'package:food_recipe/feature/presentation/bloc/categorymeal/bloc.dart';
 import 'package:food_recipe/feature/presentation/bloc/randommeal/bloc.dart';
 import 'package:food_recipe/feature/presentation/page/detail/detail_page.dart';
+import 'package:food_recipe/feature/presentation/page/search/search_page.dart';
 import 'package:food_recipe/feature/presentation/widget/widget_custom_shimmer.dart';
 import 'package:food_recipe/injection_container.dart';
 
@@ -45,10 +46,10 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             icon: Icon(
-              Icons.refresh,
+              Icons.search,
             ),
             onPressed: () {
-              _doLoadData();
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage()));
             },
           ),
         ],

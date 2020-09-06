@@ -13,4 +13,6 @@ abstract class TheMealDbRepository {
   Future<Either<Failure, FilterByCategoryResponse>> getFilterByCategory(String category);
 
   Future<Either<Failure, SearchMealByNameResponse>> searchMealByName(String name);
+
+  Future<Either<Failure, DetailMealResponse>> getDetailMealById(String id);
 }

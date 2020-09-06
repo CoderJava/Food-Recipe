@@ -77,4 +77,19 @@ class TheMealDbRepositoryImpl implements TheMealDbRepository {
       return Left(ConnectionFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, DetailMealResponse>> getDetailMealById(String id) async {
+    var isConnected = await networkInfo.isConnected;
+    if (isConnected) {
+      try {
+        var response = await theMealDbRemoteDataSource.getDetailMealById(id);
+        return Right(response);
+      } on DioError catch (error) {
+        return Left(ServerFailure(error.message));
+      }
+    } else {
+      return Left(ConnectionFailure());
+    }
+  }
 }

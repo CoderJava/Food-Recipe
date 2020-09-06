@@ -12,6 +12,8 @@ abstract class TheMealDbRemoteDataSource {
   Future<FilterByCategoryResponse> getFilterByCategory(String category);
 
   Future<SearchMealByNameResponse> searchMealByName(String name);
+
+  Future<DetailMealResponse> getDetailMealById(String id);
 }
 
 class TheMealDbRemoteDataSourceImpl implements TheMealDbRemoteDataSource {
@@ -96,6 +98,23 @@ class TheMealDbRemoteDataSourceImpl implements TheMealDbRemoteDataSource {
     );
     if (response.statusCode == 200) {
       return SearchMealByNameResponse.fromJson(response.data);
+    } else {
+      throw DioError();
+    }
+  }
+
+  @override
+  Future<DetailMealResponse> getDetailMealById(String id) async {
+    var response = await dio.get(
+      '/lookup.php',
+      queryParameters: {
+        'i': id,
+      },
+    );
+    if (response.statusCode == 200) {
+      Map<String, dynamic> responseData = response.data;
+      var detailMealResponse = convertJsonToDetailMealResponse(responseData);
+      return detailMealResponse;
     } else {
       throw DioError();
     }

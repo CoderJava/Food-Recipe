@@ -1,23 +1,10 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(App());
+import 'app.dart';
+import 'injection_container.dart' as di;
 
-class App extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text('Coming Soon'),
-      ),
-    );
-  }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
+  runApp(App());
 }
